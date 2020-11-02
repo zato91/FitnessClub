@@ -2,9 +2,9 @@ const express = require('express');
 const mongoose = require("mongoose");
 const cors = require('cors');
 const app = express();
-const UserController = require('./controllers/UserController')
-
+const routes = require('./routes')
 const PORT = process.env.PORT || 8000;
+
 app.use(cors())
 app.use(express.json())
 
@@ -14,13 +14,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 
-app.get('/', (req, res)=>{
-    res.send('Hello from express');
-})
-app.post('/register', UserController.store)
+
 
 console.log(process.env.MONGO_DB_SECRET)
-mongoose.connect(`mongodb+srv://user_new1:bijRwRKRqAUdaw96@cluster0.i6xeh.mongodb.net/test?retryWrites=true&w=majority`, {
+mongoose.connect(`mongodb+srv://user_new1:LbAvXRVLZFYR9qKA@cluster0.i6xeh.mongodb.net/test?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -39,6 +36,8 @@ mongoose.connect(`mongodb+srv://user_new1:bijRwRKRqAUdaw96@cluster0.i6xeh.mongod
 // if(err) throw err;
 // console.log("DB Connected Successfully");
 // });
+
+app.use(routes);
 
 app.listen(PORT, ()=> {
     console.log(`Listening on ${PORT}`)
