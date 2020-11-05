@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const cors = require('cors');
+const path = require('path');
 const app = express();
 const routes = require('./routes')
 const PORT = process.env.PORT || 8000;
@@ -37,6 +38,7 @@ mongoose.connect(`mongodb+srv://user_new1:LbAvXRVLZFYR9qKA@cluster0.i6xeh.mongod
 // console.log("DB Connected Successfully");
 // });
 
+app.use("/files", express.static(path.resolve(__dirname,"..", "files")))
 app.use(routes);
 
 app.listen(PORT, ()=> {
