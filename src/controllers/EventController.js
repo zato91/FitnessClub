@@ -35,5 +35,20 @@ module.exports = {
         } catch (error) {
             return res.status(400).json({ message: 'EventId does not exist!' })
         }
+    },
+
+    async getAllEvents(req, res) {
+        const { sport } = req.params;
+        const query = { sport } || {}
+
+        try {
+            const events = await Event.find(query)
+
+            if (events) {
+                return res.json(events)
+            }
+        } catch (error) {
+            return res.status(400).json({ message: 'We do have any events yet' })
+        }
     }
 }

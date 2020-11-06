@@ -3,6 +3,7 @@ const multer = require('multer')
 
 const UserController = require('./controllers/UserController')
 const EventController = require('./controllers/EventController')
+
 const uploadConfig = require('./config/upload')
 
 const routes = express.Router();
@@ -14,6 +15,7 @@ routes.get('/status', (req, res) => {
 
 
 //Event
+routes.get('/events', EventController.getAllEvents)
 routes.get('/event/:eventId', EventController.getEventById)
 routes.post('/event', upload.single("thumbnail"), EventController.createEvent)
 
