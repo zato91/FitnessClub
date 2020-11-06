@@ -15,9 +15,11 @@ routes.get('/status', (req, res) => {
 
 
 //Event
+routes.get('/events/:sport', EventController.getAllEvents)
 routes.get('/events', EventController.getAllEvents)
 routes.get('/event/:eventId', EventController.getEventById)
 routes.post('/event', upload.single("thumbnail"), EventController.createEvent)
+routes.delete('/event/:eventId', EventController.delete)
 
 
 //User
