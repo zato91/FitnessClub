@@ -12,7 +12,10 @@ module.exports = {
             event: eventId,
             date
         })
-
+        await registration
+        .populate('event')
+        .populate('user')
+        .execPopulate();
         return res.json(registration)
     }
 }
