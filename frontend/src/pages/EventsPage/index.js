@@ -18,7 +18,6 @@ export default function EventsPage() {
     }, [thumbnail])
 
 
-    console.log(title, description, price, sport)
 
     const submitHandler = async (evt) => {
         evt.preventDefault()
@@ -42,17 +41,16 @@ export default function EventsPage() {
                 date !== "" &&
                 thumbnail !== null
             ) {
-                console.log("Event has been sent")
+                
                 await api.post("/event", eventData, { headers: { user_id } })
-                console.log(eventData)
-                console.log("Event has been saved")
+                
             } else {
                 setErrorMessage(true)
                 setTimeout(() => {
                     setErrorMessage(false)
                 }, 2000)
 
-                console.log("Missing required data")
+                
             }
         } catch (error) {
             Promise.reject(error);
