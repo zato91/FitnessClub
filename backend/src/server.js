@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 
-console.log(process.env.MONGO_DB_SECRET)
+
 mongoose.connect(`mongodb+srv://user_new1:5mOTj8Ya3sCyVweO@cluster0.i6xeh.mongodb.net/test?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
