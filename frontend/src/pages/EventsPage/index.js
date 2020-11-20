@@ -67,7 +67,7 @@ export default function EventsPage({ history }) {
                         <Label>Upload Image: </Label>
                         <Label id='thumbnail' style={{ backgroundImage: `url(${preview})` }} className={thumbnail ? 'has-thumbnail' : ''}>
                             <Input type="file" onChange={evt => setThumbnail(evt.target.files[0])} />
-                            <img src={cameraIcon} style={{ maxWidth: "50px" }} alt="upload icon image" />
+                            <img src={cameraIcon} style={{ maxWidth: "50px" }} alt="upload icon" />
                         </Label>
                     </FormGroup>
                     <FormGroup>
