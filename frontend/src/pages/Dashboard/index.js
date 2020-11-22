@@ -3,10 +3,13 @@ import api from "../../services/api";
 import moment from "moment";
 import './dashboard.css';
 import { Button, ButtonGroup } from 'reactstrap'
+import { useHistory } from 'react-router';
 
-export default function Dashboard(history){
+
+export default function Dashboard(){
     const [events, setEvents] = useState([])
     const user_id = localStorage.getItem("user");
+    const history = useHistory();
     // const [cSelected, setCSelected] = useState([]);
     const [rSelected, setRSelected] = useState(null);
 
@@ -18,6 +21,12 @@ export default function Dashboard(history){
         setRSelected(query)
         getEvents(query)
     }
+
+    const myEventsHandler = async () => {
+        setRSelected('myevents')
+        const response = await api.get('/user/events', { headers: { user_id } })
+        setEvents(response.data)
+    }
   
     const getEvents = async (filter) => {
         const url = filter ? `/dashboard/${filter}` : "/dashboard"
@@ -28,14 +37,15 @@ export default function Dashboard(history){
     console.log(events)
     return(
         <>
-            <div>Filter:
+            <div className="filter-panel">
                 <ButtonGroup>
-                        <Button color="primary" onClick={() => filterHandler(null)} active={rSelected === null}>All Sports</Button>
-                        <Button color="primary" onClick={() => filterHandler("running")} active={rSelected === 'running'}>Running</Button>
-                        <Button color="primary" onClick={() => filterHandler("cycling")} active={rSelected === 'cycling'}>Cycling</Button>
-                        <Button color="primary" onClick={() => filterHandler('swimming')} active={rSelected === 'swimming'}>Swimming</Button>
+                    <Button color="primary" onClick={() => filterHandler(null)} active={rSelected === null}>All Sports</Button>
+                    <Button color="primary" onClick={myEventsHandler} active={rSelected === 'myevents'}>My Events</Button>
+                    <Button color="primary" onClick={() => filterHandler("running")} active={rSelected === 'running'}>Running</Button>
+                    <Button color="primary" onClick={() => filterHandler("cycling")} active={rSelected === 'cycling'}>Cycling</Button>
+                    <Button color="primary" onClick={() => filterHandler('swimming')} active={rSelected === 'swimming'}>Swimming</Button>
                 </ButtonGroup>
-                
+                <Button color="secondary" onClick={() => history.push('events')}>Events</Button>
             </div>
             <ul className="events-list">
                 {events.map(event => (
