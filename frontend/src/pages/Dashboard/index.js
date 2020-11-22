@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import api from "../../services/api";
 import moment from "moment";
 import './dashboard.css';
-import { Button, ButtonGroup } from 'reactstrap'
+import { Button, ButtonGroup, Alert } from 'reactstrap'
 import { useHistory } from 'react-router';
 
 
@@ -43,13 +43,13 @@ export default function Dashboard(){
             setTimeout(() => {
                 setSuccess(false)
                 filterHandler(null)
-            }, 2500)
+            }, 1500)
             
         } catch (error) {
             setError(true)
             setTimeout(() => {
                 setError(false)
-            }, 2000)
+            }, 500)
         }
 
     }
@@ -79,6 +79,12 @@ export default function Dashboard(){
                     </li>
                 ))}
             </ul>
+            {error ? (
+                <Alert className="event-validation" color="danger"> Error when deleting event! </Alert>
+            ) : ""}
+            {success ? (
+                <Alert className="event-validation" color="success"> The event was deleted successfully!</Alert>
+            ) : ""}
         </>
     )
 }
