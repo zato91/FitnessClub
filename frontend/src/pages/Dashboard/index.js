@@ -25,21 +25,32 @@ export default function Dashboard(){
     }
 
     const myEventsHandler = async () => {
-        setRSelected('myevents')
-        const response = await api.get('/user/events', { headers: { user } })
-        setEvents(response.data)
-    }
-  
-    const getEvents = async (filter) => {
-        const url = filter ? `/dashboard/${filter}` : "/dashboard"
-        const response = await api.get(url, { headers: {user} }) 
+        try {
+            setRSelected('myevents')
+            const response = await api.get('/user/events', { headers: { user: user } })
+            setEvents(response.data.events)
+        } catch (error) {
+            history.push('/login');
 
-        setEvents(response.data)
+        }
+
+    }
+
+    const getEvents = async (filter) => {
+        try {
+            const url = filter ? `/dashboard/${filter}` : '/dashboard';
+            const response = await api.get(url, { headers: { user: user } })
+
+            setEvents(response.data.events)
+        } catch (error) {
+            history.push('/login');
+        }
+
     };
   
     const deleteEventHandler = async(eventId)=>{
         try {
-            await api.delete(`/event/${eventId}`);
+            await api.delete(`/event/${eventId}`, { headers: { user: user } });
             setSuccess(true)
             setTimeout(() => {
                 setSuccess(false)
