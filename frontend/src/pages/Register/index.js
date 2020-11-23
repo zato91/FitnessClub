@@ -17,10 +17,12 @@ export default function Register({ history }) {
 
         if (email !== "" && password !== "" && firstName !== "" && lastName !== "") {
             const response = await api.post('/user/register', { email, password, firstName, lastName })
-            const userId = response.data._id || false;
+            const userId = response.data.user_id || false;
+            const user = response.data._id || false;
 
             if (userId) {
                 localStorage.setItem('user', userId)
+                localStorage.setItem('user', user)
                 history.push('/dashboard')
             } else {
                 const { message } = response.data

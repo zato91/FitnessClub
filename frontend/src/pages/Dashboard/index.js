@@ -8,7 +8,8 @@ import { useHistory } from 'react-router';
 
 export default function Dashboard(){
     const [events, setEvents] = useState([])
-    const user_id = localStorage.getItem("user");
+    const user_id = localStorage.getItem("user_id");
+    const user = localStorage.getItem("user");
     const history = useHistory();
     const [rSelected, setRSelected] = useState(null);
     const [error, setError] = useState(false);
@@ -25,13 +26,13 @@ export default function Dashboard(){
 
     const myEventsHandler = async () => {
         setRSelected('myevents')
-        const response = await api.get('/user/events', { headers: { user_id } })
+        const response = await api.get('/user/events', { headers: { user } })
         setEvents(response.data)
     }
   
     const getEvents = async (filter) => {
         const url = filter ? `/dashboard/${filter}` : "/dashboard"
-        const response = await api.get(url, { headers: {user_id} }) 
+        const response = await api.get(url, { headers: {user} }) 
 
         setEvents(response.data)
     };
