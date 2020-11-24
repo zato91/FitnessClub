@@ -65,6 +65,14 @@ export default function Dashboard(){
         }
 
     }
+
+
+    const logoutHandler =()=>{
+        localStorage.removeItem('user')
+        localStorage.removeItem('user_id')
+        history.push('/login');
+
+    }
     return(
         <>
             <div className="filter-panel">
@@ -75,7 +83,10 @@ export default function Dashboard(){
                     <Button color="primary" onClick={() => filterHandler("cycling")} active={rSelected === 'cycling'}>Cycling</Button>
                     <Button color="primary" onClick={() => filterHandler('swimming')} active={rSelected === 'swimming'}>Swimming</Button>
                 </ButtonGroup>
+                <ButtonGroup>
                 <Button color="secondary" onClick={() => history.push('events')}>Events</Button>
+                <Button color="danger" onClick={logoutHandler}>Logout</Button>
+                </ButtonGroup>
             </div>
             <ul className="events-list">
                 {events.map(event => (
