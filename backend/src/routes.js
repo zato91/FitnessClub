@@ -19,7 +19,7 @@ routes.get('/status', (req, res) => {
 })
 //Registration 
 
-routes.get('/dashboard/:sport', verifyToken, DashboardController.getAllEvents)
+routes.post('/registration/:eventId', verifyToken, RegistrationController.create)
 routes.get('/dashboard', verifyToken, DashboardController.getAllEvents)
 routes.get('/user/events', verifyToken, DashboardController.getEventsByUserId)
 routes.get('/event/:eventId', verifyToken, DashboardController.getEventById)
