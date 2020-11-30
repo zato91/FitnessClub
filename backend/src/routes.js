@@ -30,10 +30,10 @@ routes.get('/event/:eventId', verifyToken, DashboardController.getEventById)
 routes.post('/login', LoginController.store)
 
 //Dashboard
-routes.get('/dashboard/:sport', DashboardController.getAllEvents)
-routes.get('/dashboard', DashboardController.getAllEvents)
-routes.get('/user/events', DashboardController.getEventsByUserId)
-routes.get('/event/:eventId', DashboardController.getEventById)
+routes.get('/dashboard/:sport', verifyToken, DashboardController.getAllEvents)
+routes.get('/dashboard', verifyToken, DashboardController.getAllEvents)
+routes.get('/user/events', verifyToken, DashboardController.getEventsByUserId)
+routes.get('/event/:eventId', verifyToken, DashboardController.getEventById)
 
 //Events
 routes.post('/event',verifyToken, upload.single('thumbnail'), EventController.createEvent)

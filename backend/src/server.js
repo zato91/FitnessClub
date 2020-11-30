@@ -31,7 +31,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 
-mongoose.connect(`mongodb+srv://user_new1:fwuyuxfd35DgP5ux@cluster0.i6xeh.mongodb.net/test?retryWrites=true&w=majority`, {
+mongoose.connect(`mongodb+srv://user_new:hsgTljJ1owmKUBYh@cluster0.i6xeh.mongodb.net/test?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
