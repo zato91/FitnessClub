@@ -9,7 +9,7 @@ import TopNav from './components/TopNav'
 export default function Routes() {
     return (
         <BrowserRouter>
-        <TopNva/>
+        <TopNav/>
             <Switch>
                 <Route path='/' exact component={Dashboard} />
                 <Route path='/login' exact component={Login} />
