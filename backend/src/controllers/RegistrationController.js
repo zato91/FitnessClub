@@ -49,4 +49,23 @@ module.exports = {
         }
 
     }
+
+    getMyRegistrations(req, res) {
+		jwt.verify(req.token, 'secret', async (err, authData) => {
+			if (err) {
+				res.sendStatus(401)
+			} else {
+
+				try {
+					const registrationsArr = await Registration.find({ "owner": authData.user._id })
+					if (registrationsArr) {
+						return res.json(registrationsArr);
+					}
+
+				} catch (error) {
+					console.log(error)
+				}
+			}
+		})
+	}
 }
