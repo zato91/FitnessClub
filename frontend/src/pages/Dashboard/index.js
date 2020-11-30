@@ -80,11 +80,7 @@ export default function Dashboard({ history }) {
         }
     }
 
-    const logoutHandler = () => {
-        localStorage.removeItem('user')
-        localStorage.removeItem('user_id')
-        history.push('/login');
-    }
+
 
     const registrationRequestHandler = async (event) => {
         try {
@@ -135,10 +131,6 @@ export default function Dashboard({ history }) {
                     <Button color="primary" onClick={() => filterHandler("running")} active={rSelected === 'running'}>Running</Button>
                     <Button color="primary" onClick={() => filterHandler("cycling")} active={rSelected === 'cycling'}>Cycling</Button>
                     <Button color="primary" onClick={() => filterHandler('swimming')} active={rSelected === 'swimming'}>Swimming</Button>
-                </ButtonGroup>
-                <ButtonGroup>
-                    <Button color="secondary" onClick={() => history.push('events')}>Events</Button>
-                    <Button color="danger" onClick={logoutHandler}>Logout</Button>
                 </ButtonGroup>
             </div>
             <ul className="events-list">
