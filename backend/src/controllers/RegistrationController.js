@@ -1,4 +1,4 @@
-const Registration = require('../models/Registration');
+const Registration = require('../models/Registration')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
@@ -20,9 +20,15 @@ module.exports = {
 					.populate('user', '-password')
 					.execPopulate()
 
+				registration.owner = registration.event.user	
+				registration.eventTitle = registration.event.title
+				registration.eventPrice = registration.event.price
+				registration.eventDate = registration.event.date
+				registration.userEmail = registration.user.email
+				registration.save()
 
-				console.log(registration.event.user)
-				
+				console.log(registration)
+
 				const ownerSocket = req.connectUsers[registration.event.user]
 
 				if (ownerSocket) {
@@ -34,30 +40,23 @@ module.exports = {
 		})
 	},
 
-    async getRegistration(req, res) {
-        const { registration_id } = req.params;
-        try {
-            const registration = await Registration.findById(registration_id)
-            await registration
-                .populate('event')
-                .populate('user', '-password')
-                .execPopulate();
+	async getRegistration(req, res) {
+		const { registration_id } = req.params
+		try {
+			const registration = await Registration.findById(registration_id)
+			await registration
+				.populate('event')
+				.populate('user', '-password')
+				.execPopulate()
 
-                registration.owner = registration.event.user	
-				registration.eventTitle = registration.event.title
-				registration.eventPrice = registration.event.price
-				registration.eventDate = registration.event.date
-				registration.userEmail = registration.user.email
-				registration.save()
+			return res.json(registration)
+		} catch (error) {
+			return res.status(400).json({ message: 'Registration not found' })
+		}
 
-            return res.json(registration)
-        } catch (error) {
-            return res.status(400).json({ message: "Registration not found" })
-        }
+	},
 
-    },
-
-    getMyRegistrations(req, res) {
+	getMyRegistrations(req, res) {
 		jwt.verify(req.token, 'secret', async (err, authData) => {
 			if (err) {
 				res.sendStatus(401)
@@ -75,4 +74,5 @@ module.exports = {
 			}
 		})
 	}
+
 }
