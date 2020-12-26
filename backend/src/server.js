@@ -20,13 +20,13 @@ io.on('connection', socket => {
 })
 
 
-if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').config()
-}
+// if (process.env.NODE_ENV !== 'production') {
+// 	require('dotenv').config()
+// }
 
 
 
-mongoose.connect(`mongodb+srv://user_new:6bdwYTuuHaJVdQ2g@cluster0.i6xeh.mongodb.net/test?retryWrites=true&w=majority`, {
+mongoose.connect(`mongodb+srv://user_new:${process.env.REACT_APP_MY_ENV}@cluster0.i6xeh.mongodb.net/test?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
